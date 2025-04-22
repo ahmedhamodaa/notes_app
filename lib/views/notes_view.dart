@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:notes_app/widgets/custom_app_bar.dart';
 
 class NotesView extends StatelessWidget {
   const NotesView({super.key});
@@ -8,37 +9,7 @@ class NotesView extends StatelessWidget {
     return Scaffold(
       body: CustomScrollView(
         slivers: [
-          SliverAppBar(
-            bottom: PreferredSize(
-              preferredSize: Size(0, 16),
-              child: SizedBox(),
-            ),
-            title: Text(
-              'Notes',
-              style: TextStyle(
-                fontWeight: FontWeight.w600,
-                fontSize: 43,
-                color: Colors.white,
-              ),
-            ),
-            centerTitle: false,
-            floating: true,
-            snap: true,
-            actionsPadding: EdgeInsets.symmetric(horizontal: 16),
-            actions: [
-              IconButton(
-                onPressed: () {},
-                icon: Icon(Icons.search, size: 24),
-                color: Colors.white,
-              ),
-              SizedBox(width: 8),
-              IconButton(
-                onPressed: () {},
-                icon: Icon(Icons.info_outline, size: 24),
-                color: Colors.white,
-              ),
-            ],
-          ),
+          CustomAppBar(),
 
           // Body content
           SliverList(
@@ -48,6 +19,14 @@ class NotesView extends StatelessWidget {
             ),
           ),
         ],
+      ),
+
+      // 🔽 FAB Added Here
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          // Add your action here
+        },
+        child: Icon(Icons.add),
       ),
     );
   }
