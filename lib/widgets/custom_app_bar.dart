@@ -11,28 +11,16 @@ class CustomAppBar extends StatelessWidget {
       bottom: PreferredSize(preferredSize: Size(0, 16), child: SizedBox()),
       title: Text(
         'Notes',
-        style: TextStyle(
-          fontWeight: FontWeight.w600,
-          fontSize: 43,
-          color: Colors.white,
-        ),
+        style: TextStyle(fontWeight: FontWeight.w500, fontSize: 43),
       ),
       centerTitle: false,
       floating: true,
       snap: true,
-      actionsPadding: EdgeInsets.symmetric(horizontal: 16),
+      actionsPadding: EdgeInsets.only(right: 20),
       actions: [
-        IconButton(
-          onPressed: () {},
-          icon: Icon(Icons.search, size: 24),
-          color: Colors.white,
-        ),
-        SizedBox(width: 8),
-        IconButton(
-          onPressed: () {},
-          icon: Icon(Icons.info_outline, size: 24),
-          color: Colors.white,
-        ),
+        IconButton(onPressed: () {}, icon: Icon(Icons.search, size: 24)),
+        SizedBox(width: 16),
+        IconButton(onPressed: () {}, icon: Icon(Icons.info_outline, size: 24)),
       ],
     );
   }
