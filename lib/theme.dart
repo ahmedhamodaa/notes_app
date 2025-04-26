@@ -3,6 +3,11 @@ import 'package:notes_app/constants.dart';
 
 ThemeData themeData() {
   return ThemeData(
+    textSelectionTheme: TextSelectionThemeData(
+      cursorColor: Colors.white,
+      selectionColor: Colors.amber.withValues(alpha: 0.4),
+      selectionHandleColor: Colors.amber,
+    ),
     scaffoldBackgroundColor: kColorPrimary,
     brightness: Brightness.dark,
     fontFamily: 'Nunito',
