@@ -9,6 +9,7 @@ class NoteTextField extends StatelessWidget {
     required this.hintText,
     this.topPadding = 8,
     this.horizontalPadding = 0,
+    this.onSaved,
   });
 
   final int minLines;
@@ -16,10 +17,17 @@ class NoteTextField extends StatelessWidget {
   final String hintText;
   final double topPadding;
   final double horizontalPadding;
+  final void Function(String?)? onSaved;
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
+    return TextFormField(
+      onSaved: onSaved,
+      validator: (value) {
+        if (value?.isEmpty ?? true) {
+          return "There is nothing to save";
+        }
+      },
       selectionControls: MaterialTextSelectionControls(),
       minLines: minLines,
       maxLines: null,
