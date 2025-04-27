@@ -8,12 +8,14 @@ class NoteTextField extends StatelessWidget {
     required this.fontSize,
     required this.hintText,
     this.topPadding = 8,
+    this.horizontalPadding = 0,
   });
 
   final int minLines;
   final double fontSize;
   final String hintText;
   final double topPadding;
+  final double horizontalPadding;
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +26,11 @@ class NoteTextField extends StatelessWidget {
       keyboardType: TextInputType.multiline,
       style: TextStyle(fontSize: fontSize, fontWeight: FontWeight.w400),
       decoration: InputDecoration(
-        contentPadding: EdgeInsets.only(top: topPadding),
+        contentPadding: EdgeInsets.only(
+          top: topPadding,
+          right: horizontalPadding,
+          left: horizontalPadding,
+        ),
         hintText: hintText,
         hintStyle: TextStyle(color: kColorHint),
         border: InputBorder.none,
