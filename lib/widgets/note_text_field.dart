@@ -25,7 +25,7 @@ class NoteTextField extends StatelessWidget {
       onSaved: onSaved,
       validator: (value) {
         if (value?.isEmpty ?? true) {
-          return "There is nothing to save";
+          return "This field is empty";
         }
       },
       selectionControls: MaterialTextSelectionControls(),

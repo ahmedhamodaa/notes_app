@@ -47,10 +47,14 @@ class _AddNoteFormState extends State<AddNoteForm> {
               children: [
                 IconButton(
                   onPressed: () {
-                    showDialog(
-                      context: context,
-                      builder: (context) => CustomDialog(),
-                    );
+                    if (formKey.currentState!.validate()) {
+                      showDialog(
+                        context: context,
+                        builder: (context) => CustomDialog(),
+                      );
+                    } else {
+                      Navigator.popUntil(context, (route) => route.isFirst);
+                    }
                   },
                   icon: const Icon(Icons.arrow_back),
                 ),
