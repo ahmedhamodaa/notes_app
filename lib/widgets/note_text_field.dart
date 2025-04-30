@@ -10,6 +10,7 @@ class NoteTextField extends StatelessWidget {
     this.topPadding = 8,
     this.horizontalPadding = 0,
     this.onSaved,
+    this.validator,
   });
 
   final int minLines;
@@ -18,16 +19,13 @@ class NoteTextField extends StatelessWidget {
   final double topPadding;
   final double horizontalPadding;
   final void Function(String?)? onSaved;
+  final String? Function(String?)? validator;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       onSaved: onSaved,
-      validator: (value) {
-        if (value?.isEmpty ?? true) {
-          return "This field is empty";
-        }
-      },
+      validator: validator,
       selectionControls: MaterialTextSelectionControls(),
       minLines: minLines,
       maxLines: null,

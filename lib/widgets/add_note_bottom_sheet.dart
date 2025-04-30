@@ -25,13 +25,18 @@ class AddNoteBottomSheet extends StatelessWidget {
           }
         },
         builder: (context, state) {
-          return ModalProgressHUD(
-            inAsyncCall: state.isLoading,
-            child: Padding(
-              padding: EdgeInsets.only(
-                bottom: MediaQuery.of(context).viewInsets.bottom,
+          return AbsorbPointer(
+            absorbing: state.isLoading,
+            child: ModalProgressHUD(
+              color: Colors.transparent,
+              inAsyncCall: state.isLoading,
+              progressIndicator: CircularProgressIndicator(color: Colors.amber),
+              child: Padding(
+                padding: EdgeInsets.only(
+                  bottom: MediaQuery.of(context).viewInsets.bottom,
+                ),
+                child: AddNoteForm(),
               ),
-              child: AddNoteForm(),
             ),
           );
         },
