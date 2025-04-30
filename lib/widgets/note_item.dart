@@ -8,6 +8,9 @@ import 'package:notes_app/views/notes_view.dart';
 class NoteItem extends StatelessWidget {
   const NoteItem({super.key, required this.note});
   final NoteModel note;
+  void deleteNote(BuildContext context) {
+    note.delete();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -18,15 +21,17 @@ class NoteItem extends StatelessWidget {
 
         startActionPane: ActionPane(
           motion: const DrawerMotion(),
-          dismissible: DismissiblePane(onDismissed: () {}),
+          dismissible: DismissiblePane(onDismissed: () => note.delete()),
 
-          children: const [
+          children: [
             SlidableAction(
-              onPressed: doNothing,
-              backgroundColor: Color(0xFFFE4A49),
+              onPressed: deleteNote,
+              backgroundColor: const Color(0xFFFE4A49),
               foregroundColor: Colors.white,
               icon: Icons.delete_rounded,
-              borderRadius: BorderRadius.horizontal(right: Radius.circular(12)),
+              borderRadius: const BorderRadius.horizontal(
+                right: Radius.circular(12),
+              ),
             ),
           ],
         ),
