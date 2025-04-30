@@ -1,21 +1,18 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hive_flutter/hive_flutter.dart';
+import 'package:hive/hive.dart';
 import 'package:notes_app/constants.dart';
-import 'package:notes_app/cubits/notes/notes_state.dart';
 import 'package:notes_app/models/note_model.dart';
 
+part 'notes_state.dart';
+
 class NotesCubit extends Cubit<NotesState> {
-  NotesCubit() : super(const NotesState());
+  NotesCubit() : super(NotesInitial());
 
-  fetchAllNotes(NoteModel note) async {
-    // emit(state.copyWith(isLoading: true, error: null));
+  List<NoteModel>? notes;
+  fetchAllNotes() {
+    var notesBox = Hive.box<NoteModel>(kNotesBox);
 
-    try {
-      final notesBox = Hive.box<NoteModel>(kNotesBox);
-      List<NoteModel> notes = notesBox.values.toList();
-      emit(state.copyWith(isLoading: false, successfully: true, notes: notes));
-    } catch (e) {
-      emit(state.copyWith(isLoading: false, error: e.toString()));
-    }
+    notes = notesBox.values.toList();
+    emit(NotesSuccess());
   }
 }

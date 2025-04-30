@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:notes_app/constants.dart';
+import 'package:notes_app/models/note_model.dart';
 import 'package:notes_app/views/edit_note_view.dart';
 import 'package:notes_app/views/notes_view.dart';
 
 class NoteItem extends StatelessWidget {
-  const NoteItem({super.key});
+  const NoteItem({super.key, required this.note});
+  final NoteModel note;
 
   @override
   Widget build(BuildContext context) {
@@ -72,7 +74,7 @@ class NoteItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'This is title',
+                  note.title,
                   style: TextStyle(
                     color: Colors.black,
                     fontSize: 26,
@@ -80,7 +82,7 @@ class NoteItem extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  'Book Review : The Design of Everyday Things by Don Norman',
+                  note.content,
                   style: TextStyle(
                     color: Colors.black87,
 
@@ -93,7 +95,7 @@ class NoteItem extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Text(
-                      '23 Apr, 2025',
+                      note.date,
                       style: TextStyle(
                         color: Colors.black,
 

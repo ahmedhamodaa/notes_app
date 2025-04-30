@@ -1,29 +1,7 @@
-import 'package:notes_app/models/note_model.dart';
+part of 'notes_cubit.dart';
 
-class NotesState {
-  final bool isLoading;
-  final String? error;
-  final bool successfully; // Track if a note was submitted
-  final List<NoteModel> notes;
+abstract class NotesState {}
 
-  const NotesState({
-    this.isLoading = false,
-    this.error,
-    this.successfully = false,
-    this.notes = const [],
-  });
+class NotesInitial extends NotesState {}
 
-  NotesState copyWith({
-    bool? isLoading,
-    String? error,
-    bool? successfully,
-    List<NoteModel>? notes,
-  }) {
-    return NotesState(
-      isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
-      successfully: successfully ?? this.successfully,
-      notes: notes ?? this.notes,
-    );
-  }
-}
+class NotesSuccess extends NotesState {}
