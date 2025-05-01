@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:notes_app/constants.dart';
+import 'package:notes_app/cubits/notes/notes_cubit.dart';
 import 'package:notes_app/models/note_model.dart';
 import 'package:notes_app/views/edit_note_view.dart';
 import 'package:notes_app/views/notes_view.dart';
@@ -10,6 +12,7 @@ class NoteItem extends StatelessWidget {
   final NoteModel note;
   void deleteNote(BuildContext context) {
     note.delete();
+    BlocProvider.of<NotesCubit>(context).fetchAllNotes();
   }
 
   @override
@@ -21,7 +24,6 @@ class NoteItem extends StatelessWidget {
 
         startActionPane: ActionPane(
           motion: const DrawerMotion(),
-          dismissible: DismissiblePane(onDismissed: () => note.delete()),
 
           children: [
             SlidableAction(
