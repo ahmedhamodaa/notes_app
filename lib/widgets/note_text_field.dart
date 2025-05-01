@@ -11,6 +11,8 @@ class NoteTextField extends StatelessWidget {
     this.horizontalPadding = 0,
     this.onSaved,
     this.validator,
+    this.onChanged,
+    this.controller,
   });
 
   final int minLines;
@@ -20,10 +22,14 @@ class NoteTextField extends StatelessWidget {
   final double horizontalPadding;
   final void Function(String?)? onSaved;
   final String? Function(String?)? validator;
+  final void Function(String)? onChanged;
+  final TextEditingController? controller;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      controller: controller,
+      onChanged: onChanged,
       onSaved: onSaved,
       validator: validator,
       selectionControls: MaterialTextSelectionControls(),

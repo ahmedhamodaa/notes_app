@@ -18,40 +18,24 @@ class NoteItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 10),
-      child: Slidable(
-        key: const ValueKey(0),
-
-        startActionPane: ActionPane(
-          motion: const DrawerMotion(),
-
-          children: [
-            SlidableAction(
-              onPressed: deleteNote,
-              backgroundColor: const Color(0xFFFE4A49),
-              foregroundColor: Colors.white,
-              icon: Icons.delete_rounded,
-              borderRadius: const BorderRadius.horizontal(
-                right: Radius.circular(12),
-              ),
-            ),
-          ],
+      padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+      child: Dismissible(
+        key: ValueKey(note.id),
+        movementDuration: Durations.extralong4,
+        direction: DismissDirection.endToStart,
+        onDismissed: (direction) {
+          deleteNote(context);
+        },
+        background: Container(
+          padding: EdgeInsets.symmetric(horizontal: 20),
+          margin: EdgeInsets.symmetric(vertical: 8),
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(12),
+            color: Colors.red,
+          ),
+          child: Icon(Icons.delete_rounded, size: 36, color: Colors.white),
         ),
-
-        endActionPane: const ActionPane(
-          motion: DrawerMotion(),
-          children: [
-            SlidableAction(
-              onPressed: doNothing,
-              backgroundColor: Color(0xFF21B7CA),
-              foregroundColor: Colors.white,
-              icon: Icons.share,
-              borderRadius: BorderRadius.horizontal(left: Radius.circular(12)),
-              // label: 'Share',
-            ),
-          ],
-        ),
-
         child: GestureDetector(
           onTap:
               () => Navigator.push(
@@ -64,55 +48,59 @@ class NoteItem extends StatelessWidget {
                       top: Radius.circular(20),
                     ),
                   ),
-                  builder: (context) => EditNoteView(),
+                  builder: (context) => EditNoteView(note: note),
                   isScrollControlled: true,
                 ),
               ),
-          child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 32, vertical: 28),
-            margin: EdgeInsets.symmetric(horizontal: 20),
+          child: ClipRRect(
+            clipBehavior: Clip.antiAlias,
+            borderRadius: BorderRadius.circular(12),
+            child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 32, vertical: 28),
+              margin: EdgeInsets.symmetric(horizontal: 0),
 
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(12),
-              color: Colors.amber,
-            ),
-            child: Column(
-              spacing: 16,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  note.title,
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 26,
-                    fontWeight: FontWeight.w400,
-                  ),
-                ),
-                Text(
-                  note.content,
-                  style: TextStyle(
-                    color: Colors.black87,
-
-                    fontSize: 20,
-                    fontWeight: FontWeight.w400,
-                  ),
-                ),
-                SizedBox(),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Text(
-                      note.date,
-                      style: TextStyle(
-                        color: Colors.black,
-
-                        fontSize: 16,
-                        fontWeight: FontWeight.w300,
-                      ),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12),
+                color: Colors.amber,
+              ),
+              child: Column(
+                spacing: 16,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    note.title,
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 26,
+                      fontWeight: FontWeight.w400,
                     ),
-                  ],
-                ),
-              ],
+                  ),
+                  Text(
+                    note.content,
+                    style: TextStyle(
+                      color: Colors.black87,
+
+                      fontSize: 20,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                  SizedBox(),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Text(
+                        note.date,
+                        style: TextStyle(
+                          color: Colors.black,
+
+                          fontSize: 16,
+                          fontWeight: FontWeight.w300,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         ),
