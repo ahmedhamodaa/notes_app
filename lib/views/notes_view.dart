@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:notes_app/constants.dart';
 import 'package:notes_app/cubits/notes/notes_cubit.dart';
 import 'package:notes_app/models/note_model.dart';
 import 'package:notes_app/widgets/add_note_bottom_sheet.dart';
 import 'package:notes_app/widgets/custom_app_bar.dart';
 import 'package:notes_app/widgets/note_item.dart';
-
-void doNothing(BuildContext context) {}
+import 'package:notes_app/widgets/empty_notes_message.dart'; // You will need to create this widget
 
 class NotesView extends StatefulWidget {
   const NotesView({super.key});
@@ -18,6 +16,12 @@ class NotesView extends StatefulWidget {
 }
 
 class _NotesViewState extends State<NotesView> {
+  @override
+  void initState() {
+    BlocProvider.of<NotesCubit>(context).fetchAllNotes();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,6 +35,24 @@ class _NotesViewState extends State<NotesView> {
             builder: (context, state) {
               List<NoteModel> notes =
                   BlocProvider.of<NotesCubit>(context).notes ?? [];
+
+              if (state is NotesLoading) {
+                return SliverFillRemaining(
+                  child: Center(child: CircularProgressIndicator()),
+                );
+              }
+
+              if (notes.isEmpty) {
+                return SliverFillRemaining(
+                  child: Center(
+                    child: Text(
+                      'No notes found',
+                      style: TextStyle(fontSize: 18, color: Colors.grey),
+                    ),
+                  ),
+                );
+              }
+
               return SliverList(
                 delegate: SliverChildBuilderDelegate(
                   addAutomaticKeepAlives: true,
